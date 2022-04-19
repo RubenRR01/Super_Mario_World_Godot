@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Character Assets/SpawnHammer_Toad.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Character Assets/Toad1.png" type="Texture" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.5, 13.6875 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "new"
+length = 3.0
+
+[sub_resource type="Animation" id=4]
+resource_name = "spawn"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 25 ), Vector2( 0, -25 ) ]
+}
+
+[node name="Spawn_Hammer_Toad" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 25 )
+frames = SubResource( 1 )
+offset = Vector2( 0, 25 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, 1.3125 )
+shape = SubResource( 2 )
+
+[node name="Jump_Timer" type="Timer" parent="."]
+wait_time = 5.934
+autostart = true
+
+[node name="Hammer_Timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/new = SubResource( 3 )
+anims/spawn = SubResource( 4 )
+
+[node name="Spawn_Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Jump_Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Hammer_Timer" to="." method="_on_Hammer_Timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="Spawn_Timer" to="." method="_on_Spawn_Timer_timeout"]
