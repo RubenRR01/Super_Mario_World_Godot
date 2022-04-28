@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/World_Assets/Coins_1.png" type="Texture" id=1]
+[ext_resource path="res://Assets/World_Assets/Coins_3.png" type="Texture" id=2]
+[ext_resource path="res://Assets/World_Assets/Coins_2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/World_Assets/Coins_4.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="AnimatedSprite" type="AnimatedSprite"]
+position = Vector2( 1.03116e-05, 4.66108e-05 )
+frames = SubResource( 1 )
+frame = 1
+playing = true

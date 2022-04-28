@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://coin_scene/AnimatedSprite.tscn" type="PackedScene" id=1]
+[ext_resource path="res://coin_scene/CollisionShape2D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://coin_scene/AnimationPlayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Character Assets/Coin.gd" type="Script" id=4]
+
+[node name="coin" type="Area2D"]
+collision_layer = 0
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" parent="." instance=ExtResource( 3 )]
+root_node = NodePath("../AnimatedSprite")
+
+[node name="CollisionShape2D" parent="." instance=ExtResource( 2 )]
+
+[node name="AnimatedSprite" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 0 )
+frame = 2
+
+[connection signal="body_entered" from="." to="." method="_on_coin_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
