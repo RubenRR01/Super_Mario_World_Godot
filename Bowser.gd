@@ -39,7 +39,8 @@ func _physics_process(delta):
 	
 	pipe()
 	detect_item()
-	mi_posicion = self.position
+	if self.position.y > 500:
+		$AnimationPlayer.play("dies")
 func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 
@@ -104,17 +105,17 @@ func _change():
 	
 
 
-func _on_Bot_Checker_body_entered(body):
-	if Input.is_action_pressed("move_up"):
-		velocity.y = -mini_jump + jump_velocity
-	else:
-		velocity.y = -mini_jump
+#func _on_Bot_Checker_body_entered(body):
+#	if Input.is_action_pressed("move_up"):
+#		velocity.y = -mini_jump + jump_velocity
+#	else:
+#		velocity.y = -mini_jump
 
 
 func _on_Area2D_body_entered(body):
 	set_physics_process(false)
 	$AnimationPlayer.play("dies")
-	$Area2D/CollisionShape2D.set_disabled(true)
+	$Damage_Checker/CollisionShape2D.set_disabled(true)
 	$Bowser_Hitbox.set_disabled(true)
 	$Bot_Checker/CollisionShape2D.set_disabled(true)
 
@@ -122,3 +123,18 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_area_entered(area):
 	$AnimationPlayer.play("dies")
 	set_physics_process(false)
+
+
+func _on_Bot_Checker_area_entered(area):
+	if Input.is_action_pressed("move_up"):
+		velocity.y = -mini_jump + jump_velocity
+	else:
+		velocity.y = -mini_jump
+
+
+
+func _signal():
+	pass
+
+
+
